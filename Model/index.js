@@ -5,9 +5,9 @@ sequelize.authenticate().then(()=>{
 }).catch((err)=>{
 console.log(err)
 })
-const db={}
+const db={} 
 db.Sequelize=Sequelize
-db.sequelize=sequelize
+db.sequelize=sequelize 
 
-db.users=require('./userModel')(sequelize,DataTypes)
+db.users=require('./userModel')(sequelize,DataTypes) 
 module.exports=db

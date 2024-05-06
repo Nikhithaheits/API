@@ -1,34 +1,39 @@
 const express = require("express");
 const db = require("../Model");
-//Assigning db.users to User variable
- const User = db.users;
 
-//Function to check if username or email already exist in the database
-//this is to avoid having two users with the same username and email
- const saveUser = async (req, res, next) => {
- //search the database to see if user exist
+ const testUser= db.users;
+
+
+ const saveUser = async (req, res,next) => {
+ 
  try {
-   const username = await User.findOne({
+   const username = await testUser.findOne({
      where: {
        userName: req.body.userName,
      },
    });
-   //if username exist in the database respond with a status of 409
+   
    if (username) {
-     return res.json(409).send("username already taken");
+    res.status(409).send("Username already taken");
+    console.log("the response is:"+res);
+
+    
    }
 
-   //checking if email already exist
-   const emailcheck = await User.findOne({
+   
+   const emailcheck = await testUser.findOne({
      where: {
        email: req.body.email,
      },
    });
 
-   //if email exist in the database respond with a status of 409
+   
    if (emailcheck) {
-     return res.json(409).send("Authentication failed");
+    res.status(409).send("email already taken");
+
+//     return res.json.send(409,"Authentication failed");
    }
+   
 
    next();
  } catch (error) {
